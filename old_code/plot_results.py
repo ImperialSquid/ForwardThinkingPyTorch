@@ -1,5 +1,3 @@
-import sys
-import pickle
 import numpy as np
 import seaborn as sns
 from matplotlib import pyplot as plt
@@ -12,7 +10,7 @@ back_acc = []
 back_val_acc = []
 back_times = []
 
-for i in xrange(1,4):
+for i in range(1, 4):
     fwd = np.load('layer{}_mnist_results.npz'.format(i))
     fwd_acc.append(fwd['acc'])
     fwd_val_acc.append(fwd['val_acc'])
@@ -22,17 +20,16 @@ fwd_acc = np.concatenate(fwd_acc)
 fwd_val_acc = np.concatenate(fwd_val_acc)
 fwd_times = np.concatenate(fwd_times)
 
-back = np.load('mnist_backprop_results.npz'.format(i))
+back = np.load('mnist_backprop_results.npz')
 back_acc = back['acc']
 back_val_acc = back['val_acc']
 back_times = back['times']
 
-
 sns.set_context("paper")
 sns.set(font='serif')
 sns.set_style("white", {
-        "font.family": "serif",
-        "font.serif": ["Times", "Palatino", "serif"]})
+    "font.family": "serif",
+    "font.serif": ["Times", "Palatino", "serif"]})
 
 fig = plt.figure()
 fig.set_size_inches(3.5, 4)
@@ -43,9 +40,9 @@ c1 = '#008000'
 c2 = '#000073'
 
 # create training accuracy plot
-ax.plot(fwd_times / 60., 100 * (np.array(fwd_acc)), label = 'Forward Thinking', c=c1, linewidth=2)
-ax.plot(back_times / 60., 100 * (np.array(back_acc)), label = 'Backpropagation', c=c2, alpha=.5)
-plt.yticks(np.arange(91,101))
+ax.plot(fwd_times / 60., 100 * (np.array(fwd_acc)), label='Forward Thinking', c=c1, linewidth=2)
+ax.plot(back_times / 60., 100 * (np.array(back_acc)), label='Backpropagation', c=c2, alpha=.5)
+plt.yticks(np.arange(91, 101))
 plt.title('Training Accuracy')
 
 box = ax.get_position()
@@ -57,9 +54,9 @@ plt.ylabel('Accuracy (%)')
 
 # create testing accuracy plot
 ax = plt.subplot(212)
-ax.plot(fwd_times / 60., 100 * (np.array(fwd_val_acc)), label = 'Forward Thinking', c=c1, linewidth=2)
-ax.plot(back_times / 60., 100 * (np.array(back_val_acc)), label = 'Backpropagation', c=c2, alpha=.5)
-plt.yticks(np.arange(98,100,.25))
+ax.plot(fwd_times / 60., 100 * (np.array(fwd_val_acc)), label='Forward Thinking', c=c1, linewidth=2)
+ax.plot(back_times / 60., 100 * (np.array(back_val_acc)), label='Backpropagation', c=c2, alpha=.5)
+plt.yticks(np.arange(98, 100, .25))
 plt.title('Test Accuracy')
 
 box = ax.get_position()
