@@ -4,6 +4,8 @@ from torchvision.datasets import MNIST
 
 from LFnet import LFnet
 
+from LFnet import LFnet
+
 
 def get_dataloaders():
     train = MNIST(root="./data/train", train=True, download=True)
